@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>CLip-Path</title>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background-color: black;
+    }
+
+    #box {
+      width: 100%;
+      height: 100%;
+    }
+
+    #view {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      transition: all 0.4s ease-in;
+    }
+
+    .view-half {
+      clip-path: polygon(2% 10%, 98% 10%, 98% 90%, 2% 90%);
+    }
+
+    .view-all {
+      clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+    }
+
+    .tips {
+      position: absolute;
+      z-index: 10;
+      width: 200px;
+      height: 250px;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+    }
+
+    .tip {
+      position: absolute;
+      opacity: 1;
+      list-style: none;
+      text-align: center;
+      line-height: 50px;
+      font-size: 30px;
+      color: rgba(255, 255, 255, 1);
+      cursor: pointer;
+      transition: all 0.6s ease-in;
+    }
+
+    .tip-1 {
+      top: 0px;
+    }
+
+    .tip-2 {
+      top: 50px;
+    }
+
+    .tip-3 {
+      top: 100px;
+    }
+
+    .tip-4 {
+      top: 150px;
+    }
+
+    .tip-5 {
+      top: 200px;
+    }
+
+    .tip-choose {
+      transform: scale(1.8);
+      top: 100px;
+    }
+
+    .mask {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: 4;
+      background-color: black;
+    }
+
+    .arrows {
+      position: absolute;
+      z-index: 11;
+      left: 50px;
+      top: 50px;
+      content: "";
+      display: inline-block;
+      height: 15px;
+      width: 15px;
+      border-width: 0px 0px 4px 4px;
+      border-color: #fff;
+      border-style: solid;
+      transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+      -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+      cursor: pointer;
+      display: none;
+    }
+
+    .banner {
+      width: 100%;
+      position: absolute;
+      transform: scale(1.1, 1.1);
+      transition: transform 0.4s ease;
+      background-repeat: no-repeat;
+      z-index: 1;
+    }
+
+    .show {
+      transform: scale(1, 1);
+      z-index: 3;
+    }
+
+    .show-banner {
+      animation: firstBannerIn 0.4s ease-in;
+      clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    }
+
+    .show-banner-half {
+      animation: firstBannerInHalf 0.4s ease-in;
+      clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    }
+
+    @keyframes firstBannerIn {
+      0% {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+
+      50% {
+        clip-path: polygon(50% 0, 100% 0, 100% 100%, 20% 100%);
+      }
+
+      100% {
+        clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+      }
+    }
+
+    @keyframes firstBannerInHalf {
+      0% {
+        clip-path: polygon(2% 10%, 98% 10%, 98% 90%, 2% 90%);
+      }
+
+      50% {
+        clip-path: polygon(52% 10%, 98% 10%, 98% 90%, 22% 90%);
+      }
+
+      100% {
+        clip-path: polygon(98% 10%, 98% 10%, 98% 90%, 98% 90%);
+      }
+    }
+  </style>
+</head>
+<div id="box">
+  <div class="arrows"></div>
+  <div class="mask"></div>
+  <div id="view" class="view-half"></div>
+</div>
+
+<script>
+  (function (window) {
+    // 数据来源
+    const source = [{
+      image: './images/wallhaven-0p7e83.jpg',
+      title: 'Image1',
+    }, {
+      image: './images/wallhaven-13mk9v.jpg',
+      title: 'Image2',
+    }, {
+      image: './images/wallhaven-2ek7zy.jpg',
+      title: 'Image3',
+    }, {
+      image: './images/wallhaven-4ojex9.jpg',
+      title: 'Image4',
+    }, {
+      image: './images/wallhaven-5wwrp1.jpg',
+      title: 'Image5',
+    }]
+    let timer = null;
+    let isHalf = true;
+    // 获取根节点
+    const box = document.getElementById("box")
+    const view = document.getElementById("view")
+    const contorl = document.createElement("ul")
+    contorl.className = 'tips'
+    box.appendChild(contorl)
+    const arrows = document.querySelector('.arrows')
+    // tip事件绑定
+    setTip()
+    // 处理数据
+    setSource()
+
+
+    // tip事件绑定
+    function setTip() {
+      contorl.addEventListener('mouseenter', halfFunc, false)
+      contorl.addEventListener('mouseleave', reHalf, false)
+      arrows.addEventListener('click', toHalf, false)
+    }
+    // 处理数据
+    function setSource() {
+      source.forEach((item, index) => {
+        // 渲染底部图片
+        const banner = document.createElement('img')
+        banner.src = item.image
+        // 渲染控制栏
+        const li = document.createElement("li")
+        li.className = `tip tip-${index+1}`
+        li.innerHTML = `<span>${item.title}</span>`
+        li.addEventListener('click', function () {
+          isHalf = false
+          // 全屏展开
+          view.className = 'view-all'
+          // 移除事件
+          contorl.removeEventListener('mouseenter', halfFunc, false)
+          contorl.removeEventListener('mouseleave', reHalf, false)
+          // 隐藏其余tips
+          hiddenTips(index)
+          // .4s后放大title
+          setTimeout(() => {
+            arrows.style.display = 'inline-block'
+            this.className = `tip tip-${index+1} tip-choose`
+          }, 400);
+        }, false)
+        if (index === 0) {
+          banner.className = 'banner show'
+        } else {
+          banner.className = 'banner'
+        }
+        view.appendChild(banner)
+        contorl.appendChild(li)
+      })
+      setTipFunc()
+    }
+    // 选择不同的tip 
+    function chooseBanner(index) {
+      if (!isHalf) return;
+      const banners = document.querySelectorAll('.banner')
+      const tips = document.querySelectorAll('.tip')
+      banners.forEach((item, i) => {
+        banners[i].className = "banner"
+        tips[i].style.color = "rgba(255, 255, 255, 0.2)"
+      })
+      banners[index].className = 'banner show'
+      tips[index].style.color = "rgba(255, 255, 255, 1)"
+    }
+    // 恢复半屏
+    function reHalf() {
+      const tips = document.querySelectorAll('.tip')
+      clearTimeout(timer)
+      view.className = 'view-half show-banner-half'
+      tips.forEach((item, i) => {
+        item.style.color = "rgba(255, 255, 255, 1)"
+      })
+      timer = setTimeout(() => {
+        const mask = document.querySelector(".mask")
+        mask.className = 'mask'
+        view.className = 'view-half'
+      }, 400);
+    }
+    // 隐藏半屏
+    function halfFunc() {
+      const mask = document.querySelector(".mask")
+      mask.className = 'mask show-banner'
+      view.className = 'view-half'
+    }
+    // 设置tip事件
+    function setTipFunc() {
+      const lists = document.querySelectorAll('.tip');
+      lists.forEach((item, i) => {
+        item.addEventListener('mouseenter', () => chooseBanner(i), false)
+      })
+    }
+    // 隐藏其余tips
+    function hiddenTips(index) {
+      const lists = document.querySelectorAll('.tip');
+      lists.forEach((item, i) => {
+        if (i === index) return
+        item.style.opacity = '0'
+        setTimeout(() => {
+          item.style.display = 'none'
+        }, 400);
+      })
+    }
+    // 显示其余tips
+    function showTips() {
+      const lists = document.querySelectorAll('.tip');
+      lists.forEach((item, i) => {
+        item.style.opacity = '1'
+        item.className = `tip tip-${i+1}`
+        setTimeout(() => {
+          item.style.display = 'inline-block'
+        }, 400);
+      })
+    }
+    // 回复半屏
+    function toHalf() {
+      isHalf = true
+      arrows.style.display = 'none'
+      view.className = 'view-half'
+      contorl.addEventListener('mouseenter', halfFunc, false)
+      contorl.addEventListener('mouseleave', reHalf, false)
+      showTips()
+      setTimeout(() => {
+        reHalf()
+      }, 400);
+    }
+  })(window)
+</script>
+
+</html>
