@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>虚拟列表</title>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    #view {
+      width: 400px;
+      height: 500px;
+      background-color: lightgrey;
+      margin: 200px auto;
+      overflow-y: scroll;
+      position: relative;
+    }
+
+    .main {
+      width: 100%;
+      position: relative;
+      left: 0;
+      top: 0;
+      background-color: pink;
+    }
+
+    .content {
+      width: 100%;
+      height: 500px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: lightgreen;
+    }
+
+    .item {
+      width: 100%;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+    }
+  </style>
+</head>
+<div id="view">
+  <div class="main"></div>
+  <div class="content">
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+  </div>
+</div>
+
+<script>
+  // 缺陷：1.每个item必须等高（不等高解决方案，一开始设置一个大致的不准确的item高度，后续渲染后，设置精确值，具体参考：https://zhuanlan.zhihu.com/p/34585166?group_id=959080998969823232）
+  (function (w) {
+    // 数据
+    let source = []
+    for (let i = 0; i < 10000; i++) {
+      source[i] = i
+    }
+    let start, end;
+    const listNum = 10;
+    const itemH = 50;
+    const listH = source.length * 50;
+
+    // 初始化无数据总高度列表（用其撑开视图区）
+    const view = document.getElementById("view")
+    const main = document.querySelector('.main')
+    const items = document.querySelectorAll('.item')
+    const content = document.querySelector('.content')
+    main.style.height = `${listH}px`;
+    toScroll()
+
+    view.addEventListener('scroll', toScroll, false)
+
+    /**
+     * 计算函数
+     * 通过无数据总高度列表滚动的偏移量来计算出当前视图区域的初始页数和结束页数
+     */
+    function toScroll() {
+      start = Math.floor(view.scrollTop / itemH);
+      end = start + listNum - 1;
+      render(start, end, view.scrollTop)
+    }
+    /** 
+     * 渲染函数
+     * @param start:起始页
+     * @param end:结束页
+     * @param scroll:content区域需要位移的距离
+     */
+    function render(start, end, scroll) {
+      // 截取数据中需要渲染的数组
+      const data = source.slice(start, end + 1)
+      items.forEach((item, i) => {
+        item.innerHTML = data[i]
+      })
+      // 使用transform属性滚动视图区域
+      content.style.transform = `translateY(${scroll}px)`
+    }
+  })(window)
+</script>
+
+</html>
