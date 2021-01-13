@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>IntersectionObserver API</title>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    /* html,
+    body {
+      width: 100%;
+      height: 100%;
+    } */
+
+    #box {
+      width: 800px;
+      height: 400px;
+      background-color: lightgray;
+      margin: 200px auto 0px auto;
+      overflow-y: scroll;
+    }
+
+    .show {
+      width: 200px;
+      height: 200px;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<div id="box"></div>
+
+<body>
+  <script>
+    (function (w) {
+      const colors = ['skyblue', 'lightgreen', 'lightseagreen', 'lightsalmon']
+      // 根节点元素
+      const view = document.getElementById('box')
+      // 先渲染几个元素进视图区域
+      view.appendChild(createShow())
+      view.appendChild(createShow())
+      view.appendChild(createShow())
+      const options = {
+        root: view, // 所监听对象的具体祖先元素(element)。如果未传入值或值为null，则默认使用顶级文档的视窗。
+        rootMargin: '0px', // 计算交叉时添加到根(root)边界盒bounding box的矩形偏移量， 可以有效的缩小或扩大根的判定范围从而满足计算需要。此属性返回的值可能与调用构造函数时指定的值不同，因此可能需要更改该值，以匹配内部要求。所有的偏移量均可用像素(pixel)(px)或百分比(percentage)(%)来表达, 默认值为"0px 0px 0px 0px"。
+        threshold: 1.0 // 一个包含阈值的列表, 按升序排列, 列表中的每个阈值都是监听对象的交叉区域与边界区域的比率。当监听对象的任何阈值被越过时，都会生成一个通知(Notification)。如果构造器未传入值, 则默认值为0。
+      }
+      const io = new IntersectionObserver((entries, io) => {
+        entries.forEach(item => {
+          if (item.isIntersecting) {
+            // 元素到视图区域后，停止监听该元素
+            io.unobserve(item.target)
+            // 这里可以异步请求回一些新的元素，进行渲染监听
+            const newShow = createShow()
+            view.appendChild(newShow)
+            // 监听新的元素
+            io.observe(newShow)
+          }
+        })
+      }, options)
+
+      const shows = document.querySelectorAll('.show')
+      shows.forEach((item, index) => {
+        io.observe(item)
+      })
+
+      // 创建一个元素
+      function createShow() {
+        const num = Math.floor(Math.random() * 4)
+        const show = document.createElement('div')
+        show.className = 'show'
+        show.style.backgroundColor = colors[num]
+        return show
+      }
+    })(window)
+  </script>
+</body>
+
+</html>
