@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>弹幕</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <style>
+    * {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    #box {
+      width: 100%;
+      height: 400px;
+      background-color: pink;
+    }
+
+    @keyframes move {
+      0% {
+        transform: translate(300px);
+      }
+
+      100% {
+        transform: translate(-300px);
+      }
+    }
+
+    .wap {
+      position: relative;
+      left: 0px;
+      display: inline-block;
+      animation: move 8s linear infinite;
+      margin: 0px 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box"></div>
+
+  <script>
+    /*
+    核心思想就是随机生成一个0-lines的随机数：Math.floor(Math.random() * this.lines + 1);
+    每条弹幕定位在不同的行，使用动画进行播放
+    */
+
+    const line = 6; // 行数
+    const wordsArr = ['123', 'dqqe', 'eqwds', '321312', 'fw12', 'dasdwq', '3221', '123', 'dqqe', 'eqwds', '321312',
+      'fw12', 'dasdwq', '3221',
+    ];
+
+
+    // 创建弹幕DOM
+    class wapDOM {
+      constructor(params) {
+        this.lineHeight = 50; // 行高
+        this.word = params.word;
+        this.lines = params.lines;
+        this.wap = null;
+
+        this.createDOM();
+        this.bindDOM();
+        // setTimeout(() => {
+        //   this.removeDOM();
+        // }, 10000);
+      }
+
+      // 根据传入的行数，随机确定一行进行弹幕操作
+      selectLine() {
+        const line = Math.floor(Math.random() * this.lines + 1);
+        return line * this.lineHeight;
+      }
+
+      // 创建dom
+      createDOM(params) {
+        this.wap = document.createElement('div');
+        this.wap.innerText = this.word;
+        this.wap.style.top = this.selectLine() + 'px';
+        this.wap.className = 'wap';
+      }
+      // 绑定dom
+      bindDOM() {
+        // 绑定节点
+        const box = document.getElementById("box");
+        box.appendChild(this.wap);
+      }
+      // 销毁DOM
+      removeDOM() {
+        const box = document.getElementById("box");
+        box.removeChild(this.wap);
+      }
+    }
+
+    wordsArr.map(m => {
+      setTimeout(() => {
+        new wapDOM({
+          word: m,
+          lines: line
+        })
+      }, Math.random() * 2000);
+    })
+  </script>
+</body>
+
+</html>

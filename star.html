@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>star</title>
+        <meta charset="UTF-8">
+        <style>
+            /* .top, .bottom{
+                width: 200px;
+                height: 50px;
+                position: absolute;
+            }
+            .top {
+                background-color: rgba(0,0,0,0.5);
+                z-index: 2;
+            }
+            .bottom {
+                background-color: pink;
+                z-index: 1;
+            }
+            .top-star {
+                width: 30px;
+                height: 30px;
+            } */
+        </style>
+    </head>
+
+    <!-- <div class="top">
+        <span></span>
+    </div>
+    <div class="bottom"></div> -->
+
+    <body>
+        <script>
+            const starFunc = (point) => {
+                const starArr = ['null', 'null', 'null', 'null', 'null'];
+                const score = Number(point) - 1;
+                for (let i = 0; i < starArr.length; i++){
+                    if (score >= i){
+                        starArr[i] = 'full';
+                    }else if (score < i && Math.ceil(score) === i){
+                        starArr[i] = 'half';
+                    }else {
+                        starArr[i] = 'null';
+                    }
+                }
+
+                return starArr;
+            }
+
+            const starArr = starFunc(8);
+            console.log(starArr);
+
+            // const score = 4.5;
+            // console.log(Math.ceil(score))
+        </script>
+    </body>
+</html>

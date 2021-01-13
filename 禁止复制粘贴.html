@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>禁止复制粘贴</title>
+  <meta charset="UTF-8">
+
+  <!-- 禁止缩放 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no"/>
+
+  <style type="text/css">
+    body {
+      /*禁止复制*/
+
+      -webkit-touch-callout: none;
+
+      -webkit-user-select: none;
+
+      -khtml-user-select: none;
+
+      -moz-user-select: none;
+
+      -ms-user-select: none;
+
+      user-select: none;
+
+    }
+  </style>
+
+  <script>
+    var style = document.createElement('style');
+
+    style.type = 'text/css';
+
+    var cssContent = document.createTextNode('css');
+
+    style.appendChild(cssContent);
+
+    document.body.appendChild(style);
+
+    document.documentElement.style.webkitUserSelect = 'none';
+
+    document.documentElement.style.webkitTouchCallout = 'none';
+  </script>
+</head>
+
+</html>

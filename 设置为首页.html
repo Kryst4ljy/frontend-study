@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>设为首页</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <a onclick="SetHome(this,window.location)" style="cursor:hand">设为首页</a>
+
+    <script>
+      function SetHome(obj, vrl) {
+        try {
+          console.log(obj.__proto__)
+          obj.style.behavior = "url(#default#homepage)";
+          obj.setHomePage(vrl);
+        } catch (e) {
+          console.log('wwew')
+          if (window.netscape) {
+            console.log(eqwe)
+            try {
+              netscape.security.PrivilegeManager.enablePrivilege(
+                "UniversalXPConnect"
+              );
+            } catch (e) {
+              alert(
+                "此操作被浏览器拒绝！\n请在浏览器地址栏输入“about:config”并回车\n然后将[signed.applets.codebase_principal_support]设置为'true'"
+              );
+            }
+            var prefs = Components.classes[
+              "@mozilla.org/preferences-service;1"
+            ].getService(Components.interfaces.nsIPrefBranch);
+            prefs.setCharPref("browser.startup.homepage", vrl);
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

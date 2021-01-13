@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>作用域</title>
+</head>
+
+<body>
+    <script>
+        // var a = '1.window';
+        var b = 'bbb'; 
+    
+        function foo() {
+          // var a = 'foo';
+          console.log(a);
+          console.log(b);
+        }
+      </script>
+  <script>
+    // var a = '2.window';
+
+    function foo1(cb) {
+      cb();
+    }
+    function test() {
+      var a = "2";
+      foo();
+    }
+    test();
+  </script>
+  
+</body>
+
+</html>

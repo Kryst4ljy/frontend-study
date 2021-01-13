@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>果子跨域</title>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+  </script>
+  <script>
+    guoziCreateRole();
+    function guoziCreateRole() {
+      $.ajax({
+        type: "POST",
+        url: "https://h5api.guoziyx.com/Player/createRole",
+        data: {
+          user_id: "5879708856",
+          role_id: "104857843",
+          role_name: "壹个人の醉⑤",
+          op_ip: "115.238.40.226",
+          cur_channel: "12801",
+          game_server: "1200001",
+          attach: "",
+          op_time: "201909191614",
+          game_id: "156125",
+          nonce_str: "d03ca7a5890115472c2d2b57f2df4adf",
+          sign: "044F94A85D9B9746D0291A02E01F1291"
+        },
+        dataType: 'jsonp',
+        jsonp: "jsonpCallback",
+        jsonpCallback: "success_jsonpCallback",
+        success: function (data) {},
+        error: function (err) {}
+      })
+    }
+  </script>
+</body>
+
+</html>

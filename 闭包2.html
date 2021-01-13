@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>node闭包</title>
+    <meta charset="UTF-8">
+  </head>
+  
+
+  <body>
+    <script>
+      function func() {
+        let i = 0;
+        return function() {
+          i++;
+          console.log(i)
+        }
+      }  
+
+      const a = func()();
+      const b = func()();
+    </script>
+  </body>
+</html>

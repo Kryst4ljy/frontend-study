@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>聊天监控-处理数据</title>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+
+  <script>
+    const arr = [{
+      "game_name": "悦玩-王者国度",
+      "0": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "1": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "2": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "3": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "4": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "5": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "6": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "7": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "8": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "9": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "10": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "11": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "12": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "13": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "14": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "15": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "16": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "17": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "18": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "19": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "20": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "21": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "22": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+      "23": {
+        "auto_forbid_count": 1,
+        "human_forbid_count": 0,
+        "library_count": 1
+      },
+    }];
+
+    const arr2 = changeData(arr);
+    console.log(arr2);
+
+    function changeData(arr) {
+      const keyArr = ['auto_forbid_count', 'human_forbid_count', 'library_count'];
+      let returnArr = [];
+      arr.forEach((item, index) => {
+        for (let i = 0; i < 3; i++) {
+          let obj = {
+            game_name: item.game_name,
+            count: keyArr[i],
+          }
+          for (let j = 0; j < 24; j++) {
+            obj[j] = item[j][keyArr[i]];
+          }
+          returnArr.push(obj);
+        }
+      });
+      return returnArr;
+    }
+  </script>
+</body>
+
+</html>

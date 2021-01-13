@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>filter</title>
+  <meta charset="UTF-8">
+  <style>
+    /* 默认为none */
+    img {
+      width: 1000px;
+      transition: all 200ms linear;
+      filter: none;
+    }
+
+    img:hover {
+      /* 给图像设置高斯模糊 （模糊效果-马赛克） */
+      filter: blur(2px);
+      /* 给图片应用一种线性乘法，使其看起来更亮或更暗 （点亮） */
+      filter: brightness(130%);
+      /* 调整图像的对比度。值是0%的话，图像会全黑。 （比较没意思的属性） */
+      filter: contrast(20%);
+      /* drop-shadow(h-shadow v-shadow blur spread color) 给图像设置一个阴影效果。 （照片的box-shadow）  */
+      filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.5));
+      /* 将图像转换为灰度图像。值定义转换的比例。 （黑白照片） */
+      filter: grayscale(50%);
+      /* 给图像应用色相旋转。 （变色效果） */
+      filter: hue-rotate(45deg);
+      /* 反转输入图像。 （好像也没啥意思） */
+      filter: invert(10%);
+      /* 转化图像的透明程度。 （透明度） */
+      filter: opacity(10%);
+      /* 转换图像饱和度。 （色彩饱和度 更好看了） */
+      filter: saturate(200%);
+      /* 将图像转换为深褐色。 （没啥意思） */
+      filter: sepia(20%);
+    }
+  </style>
+</head>
+
+<body>
+  <img src="./images/wallhaven-39oqky.png" alt="">
+
+
+</body>
+
+</html>

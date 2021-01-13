@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>flex实现多根轴线的对齐方式</title>
+<style type="text/css">
+*{margin: 0;padding: 0;}
+.fk>div{
+width: 200px;
+height: 200px;
+background: #D2691E;
+border: 2px solid cyan;
+}
+.fk{
+width: 1200px;
+height: 427px;
+border: 2px solid crimson;
+margin: 90px auto;
+display: flex;
+/*每行显示的样式*/
+flex-wrap: wrap-reverse;
+
+/*设置主轴上的排列*/ 
+/*justify-content: space-between;*/
+
+/*设置交叉轴上的排列*/
+/* align-items: center;*/ /*交叉轴中点*/ 
+
+/*多根轴线的对齐方式*/
+/*align-content: center;? *//*没有间隙的居中*/
+/*align-content: flex-start;*/? /*整体向下对齐*/
+/*align-content: flex-end;*/? /*整体向上对齐*/
+/*align-content: space-between;*/ /*整体上下两端对齐*/
+align-content: space-around; /*两端有间隙*/
+? 
+} 
+</style>
+</head>
+<body>
+<div class="fk">
+<div>1</div>
+<div >2</div>
+<div >3</div>
+<div >4</div>
+<div >5</div>
+<div>6</div>
+<div >7</div>
+<div >8</div>
+<div >9</div>
+
+</div>
+</body>
+</html>
+--------------------- 
+作者：memedadexixaofeifei 
+来源：CSDN 
+原文：https://blog.csdn.net/memedadexixaofeifei/article/details/78945918 
+版权声明：本文为博主原创文章，转载请附上博文链接！

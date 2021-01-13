@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>changetime</title>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+
+  <script>
+    const time = "2020-05-07";
+    const day = changeTime(time);
+    console.log(day);
+    function changeTime() {
+      const old_date = new Date(time).getTime();
+      const new_date = new Date().getTime();
+      const day = new_date - old_date;
+      const days = Math.ceil(day / (1000 * 60 * 60 * 24));
+      return days;
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>闭包</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <!-- <div>1111</div>
+    <a href="#" id="size-12">12</a>
+    <a href="#" id="size-14">14</a>
+    <a href="#" id="size-16">16</a> -->
+
+    <script>
+        // function makeSizer(size) {
+        //     // return function () {
+        //         document.body.style.fontSize = size + 'px';
+        //     // };
+        // }
+
+        // var size12 = makeSizer(12);
+        // var size14 = makeSizer(14);
+        // var size16 = makeSizer(26);
+        // console.log(size12)
+
+        // document.getElementById('size-12').onclick = size12;
+        // document.getElementById('size-14').onclick = size14;
+        // document.getElementById('size-16').onclick = size16;
+
+        // var a = 1
+
+        // var obj = {
+        //     a : 2,
+
+        //     func : () => {
+        //         console.log(this.a)
+        //     }
+        // }
+        // obj.func()
+
+        // class Person {
+        //     constructor(name, age, sex){ // 这些属性均为自有属性 不会被实例所继承
+        //         this.name = name; 
+        //         this.age = age;
+        //         this.sex = sex;
+        //     }
+
+        //     // 这些方法为公有方法 是写在Person的prototype里的 可以修改
+        //     // 但Person的prototype不能更改
+        //     sayName(){
+        //         console.log(this.name)
+        //     }
+        // }
+
+        // const xiaoming = new Person('xiaoming', 12, 'man');
+
+
+        // // Person.prototype.num = 1;
+        // // console.log(xiaoming.num)
+
+        // Person.prototype.sayName = ()=>{
+        //     console.log(111)
+        // }
+        // xiaoming.sayName();
+
+        "use strict";
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+
+        var _createClass = function () {
+            function defineProperties(target, props) {
+                for (var i = 0; i < props.length; i++) {
+                    var descriptor = props[i];
+                    descriptor.enumerable = descriptor.enumerable || false;
+                    descriptor.configurable = true;
+                    if ("value" in descriptor) descriptor.writable = true;
+                    Object.defineProperty(target, descriptor.key, descriptor);
+                }
+            }
+            return function (Constructor, protoProps, staticProps) {
+                if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                if (staticProps) defineProperties(Constructor, staticProps);
+                return Constructor;
+            };
+        }();
+
+        exports.sum = sum;
+
+        function _classCallCheck(instance, Constructor) {
+            if (!(instance instanceof Constructor)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+
+        /*
+         * 
+         * @authors 随笔川迹 (itclanCode@163.com) 
+         * @date    2018-07-07 18:01:23
+         * @desc:导出数据
+         * */
+
+        // 导出数据
+        var name = exports.name = "随笔川迹"; // 导出暴露name变量
+        var weChatPublic = exports.weChatPublic = "itclanCoder"; // 暴露weChatPublic
+        var time = exports.time = 2018; // 暴露time
+        var flag = true;
+
+
+
+        // 导出函数
+        function sum(num1, num2) {
+            return num1 + num2;
+        }
+        /*
+         *
+         * 以上等价于
+         * function sum(num1,num2){
+         *    return num1+num2;
+         * }
+         * export sum;
+         * 
+         */
+
+        // 导出类
+
+        var People = exports.People = function () {
+            function People(name, age) {
+                _classCallCheck(this, People);
+
+                this.name = name;
+                this.age = age;
+            }
+
+            _createClass(People, [{
+                key: "info",
+                value: function info() {
+                    return "" + this.name + this.age + "\u5C81\u4E86";
+                }
+            }]);
+
+            return People;
+        }();
+    </script>
+</body>
+
+</html>

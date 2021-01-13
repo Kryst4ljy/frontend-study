@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>取前几个字符串</title>
+    <meta charset="UTF-8">
+  </head>
+
+  <body>
+    
+
+    <script>
+        let str = 'abcdefghijklmnopqrstuvwxyz'
+
+        const str2 = func(str, 30)
+        console.log(str2)
+
+        function func(str, num) {
+          let returnStr = ''
+          const beforeStr = str.toString()
+          const strNum = beforeStr.length
+          if (strNum <= num) {
+            returnStr = beforeStr
+            return returnStr
+          } else {
+            returnStr = beforeStr.slice(0, Number(num))
+            return returnStr
+          }
+        }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>hostname</title>
+  <meta charset="UTF_8">
+</head>
+
+<body>
+  <script>
+    let str = "/sdk222/loe/ldsd";
+    console.log(cutHostName(str));
+
+    function cutHostName(name) {
+      return name.substring(0, name.indexOf("/", 1));
+    }
+  </script>
+</body>
+
+</html>

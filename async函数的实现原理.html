@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>async函数的实现原理</title>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+
+  <script>
+    function foo() {
+
+
+      function spawn(func) {
+        return new Promise(function (resolve, reject) {
+          // 获取状态指针对象
+          let gen = func();
+          // 自动执行遍历指针对象
+          function step(nextF) {
+            let next;
+            try {
+              next = nextF();
+            } catch (error) {
+              return reject(error);
+            }
+            if (next.done) { // 如果状态机内部已经返回done了，则返回Promise
+              return resolve(next.value);
+            } else { // 如果未完成 则递归执行step函数，再次遍历
+              Promise.resolve(next.value).then(function (v) {
+                step(function () {
+                  return gen.next(v);
+                });
+              }, function (e) {
+                step(function () {
+                  return gen.throw(e);
+                });
+              });
+            }
+          }
+          step(function () {
+            return gen.next(undefined);
+          })
+        })
+      }
+    }
+  </script>
+</body>
+
+</html>

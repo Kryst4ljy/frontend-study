@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>深浅拷贝</title>
+    <meta charset="UTF-8">
+  </head>
+
+  <body>
+    
+
+
+    <script>
+      const arr1 = [1,2,3,4];
+      const arr2 = [];
+      arr1.forEach((item, index)=>{
+        arr2[index] = item;
+      }) 
+      // const arr2 = [...arr1] 
+      // const arr2 = arr1.concat()
+      arr2[0] = 5;
+
+      // // 深拷贝
+      // const arr2 = Object.assign(
+        
+      // )
+      console.log("arr2",arr2);
+      console.log("arr1",arr1);
+      console.log(arr1 === arr2)
+    </script>
+  </body>
+</html>

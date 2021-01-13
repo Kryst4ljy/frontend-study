@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>回调函数</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    
+    <script>
+      let extInfo = {};
+      let data = 1;
+      const SDK = {
+        extInfo: 2,
+        login: function(callback) {
+          const data = {
+            code: 1,
+            info: 'hello world'
+          }
+          let extInfo = 1;
+          // callback.call(this, data)
+          callback(data, extInfo);
+
+          return function() {
+            extInfo++;
+            return extInfo;
+          }
+        }
+      }
+      
+      const a = SDK.login(function() {
+        console.log(data)
+        console.log(this.extInfo)
+      })();  
+      console.log('a', a)
+    </script>
+  </body>
+</html>

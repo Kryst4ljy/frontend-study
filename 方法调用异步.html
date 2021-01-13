@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>方法调用异步</title>
+    <meta charset="UTF-8">
+  </head>
+
+  <div id="box" onclick="func()">1</div>
+
+
+  <body>
+    
+
+    <script>
+      const box = document.getElementById("box");
+      
+      
+      function func() {
+        console.log(this);
+      }
+    </script>
+  </body>
+</html>

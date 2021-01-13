@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>拉闸</title>
+    <meta charset="UTF-8">
+    <style>
+      * {
+        padding: 0px;
+        margin: 0px;
+      }
+      body {
+        background-color: black;
+      }
+      .box {
+        /* background-color: pink; */
+        width: 50px;
+        height: 50px;
+        margin: auto;
+        margin-top: 40px;
+        position: relative;
+        box-sizing: border-box;
+      }
+      .head-bg-img {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        transform: translate3d(-50%, -50%, 0px);
+      }
+      .head-circle {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        /* background-color: yellow; */
+        z-index: 2;
+        background-image: url("./images/headCircle.gif");
+        background-position: -8px -8px;
+        background-size: 61px 61px;
+        background-repeat: no-repeat;
+      }
+      .head-identity {
+        width: 100%;
+        height: 100%;
+        /* background-color: skyblue; */
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 3;
+        background-image: url("./images/headIdentity.png");
+        background-size: 56px 56px;
+        background-position: -4px -6px;
+        background-repeat: no-repeat;
+      }
+      .head-info {
+        width: 30px;
+        position: absolute;
+        right: 15px;
+        top: 36px;
+        z-index: 4;
+        opacity: 1;
+        animation: headAnimation 2000ms linear infinite;
+      }
+      @keyframes headAnimation {
+        0% {
+          width: 0px;
+          opacity: 1;
+        }
+        20% {
+          width: 30px;
+          opacity: 1;
+        }
+        30% {
+          width: 26px;
+          opacity: 1;
+        }
+        40% {
+          width: 30px;
+          opacity: 1;
+        }
+        80% {
+          width: 30px;
+          opacity: 1;
+        }
+        100% {
+          width: 30px;
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+        <img class="head-bg-img" src="./images/head.png" alt="">
+        <div class="head-circle"></div>
+        <div class="head-identity"></div>
+        <img class="head-info" src="./images/headInfo.png" alt="">
+    </div>
+
+    <script>
+
+    </script>
+  </body>
+</html>

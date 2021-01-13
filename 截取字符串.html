@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <title>截取字符串</title>
+        <meta charset="UTF-8">
+</head>
+
+<body>
+
+
+        <script>
+                const a = `<img src="http://image.hzyuewan.com/sucai/15650039652432.jpg">`;
+                const c = `飞机飞过天空，天空之城飞机飞过天空，天空之城飞机飞过天空，天空之城飞机飞过天空，天空之城飞机飞过天空，天空之城飞机飞过天空，天空之城飞机飞过天空，天空之城飞机飞过天空，天空之城`;
+
+                const res = changeStr(a);
+                console.log(res);
+
+                function changeStr(str) {
+                        // 首先判断是否存在img标签
+                        const imgNum = str.indexOf("<img");
+                        if (imgNum == -1 || imgNum > 20) {
+                                return str.substring(0, 20);
+                        } else if (imgNum >= 0 && imgNum <= 20) {
+                                return str.substring(0, imgNum);
+                        } else if (imgNum == 0) {
+                                return "";
+                        } else {
+                                return "";
+                        }
+                }
+        </script>
+</body>
+
+</html>

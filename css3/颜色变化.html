@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>:before/:after</title>
+  <meta charset="UTF-8">
+  <style>
+    /*上划线和下划线变化 当前元素样式设置相对定位*/
+    .ech-overline-r,
+    .ech-overline-l,
+    .ech-underline-r,
+    .ech-underline-l,
+    .ech-underline-c,
+    .ech-overline-c,
+    .ech-underline-c-out,
+    .ech-overline-c-out {
+      position: relative;
+      transition: all .3s;
+      z-index: 1;
+    }
+
+    /*初始化:after:before大小和绝对定位*/
+    .ech-overline-r:before,
+    .ech-overline-l:before,
+    .ech-underline-l:before,
+    .ech-underline-r:before,
+    .ech-underline-c:before,
+    .ech-overline-c:before,
+    .ech-underline-c:after,
+    .ech-overline-c:after,
+    .ech-underline-c-out:before,
+    .ech-overline-c-out:before {
+      position: absolute;
+      transition: all .3s;
+      content: "";
+      display: block;
+      background: #09f;
+      z-index: -1;
+      height: 4px;
+      width: 100%;
+      transform: scaleX(0);
+    }
+
+    /*上划线 左右出来*/
+    .ech-overline-r:before {
+      top: 0;
+      left: 0;
+      transform-origin: 100% 50%;
+    }
+
+    .ech-overline-l:before {
+      top: 0;
+      right: 0;
+      transform-origin: 0 50%;
+    }
+
+    /*下划线 左右出来*/
+    .ech-underline-r:before {
+      bottom: 0;
+      left: 0;
+      transform-origin: 100% 50%;
+
+    }
+
+    .ech-underline-l:before {
+      bottom: 0;
+      right: 0;
+      transform-origin: 0% 50%;
+    }
+
+    /**上划线 下划线 居中进来**/
+    .ech-overline-c:before {
+      top: 0;
+      transform-origin: 0 50%;
+    }
+
+    .ech-overline-c:after {
+      top: 0;
+      transform-origin: 100% 50%;
+    }
+
+    .ech-underline-c:before {
+      bottom: 0;
+      transform-origin: 0 50%;
+    }
+
+    .ech-underline-c:after {
+      bottom: 0;
+      transform-origin: 100% 50%;
+    }
+
+    .ech-overline-c:before,
+    .ech-underline-c:before {
+      left: 0;
+    }
+
+    .ech-overline-c:after,
+    .ech-underline-c:after {
+      right: 0;
+    }
+
+    /*上划线 下划线-居中出去 */
+    .ech-overline-c-out:before {
+      top: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    .ech-underline-c-out:before {
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    /*hover效果*/
+    .ech-overline-c:hover:after,
+    .ech-overline-c:hover:before,
+    .ech-underline-c:hover:after,
+    .ech-underline-c:hover:before {
+      transform: scaleX(.51);
+    }
+
+    .ech-overline-l:hover:before,
+    .ech-overline-r:hover:before,
+    .ech-underline-l:hover:before,
+    .ech-underline-r:hover:before,
+    .ech-underline-c-out:hover:before,
+    .ech-overline-c-out:hover:before {
+      transform: scaleX(1);
+    }
+  </style>
+</head>
+
+<body>
+  <span class="ech-overline-l">overline-l</span>
+  <span class="ech-overline-r">overline-r</span>
+  <span class="ech-underline-l">underline-l</span>
+  <span class="ech-underline-r">underline-r</span>
+  <span class="ech-underline-c">underline-c</span>
+  <span class="ech-underline-c-out">underline-c-out</span>
+  <span class="ech-overline-c">overline-c</span>
+  <span class="ech-overline-c-out">overline-c-out</span>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>转换时间格式</title>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+  <script>
+    const time = "2020-06-23 17:50:23";
+
+    function changeTime(times) {
+      let chatAt = "";
+      // 判断是否为10位数字或者字符串的秒级时间戳
+      const reg1 = new RegExp("^[0-9]{10}$");
+      if (reg1.test(times)) {
+        chatAt = Number(times);
+        return chatAt;
+      }
+      // 判断是否为时间格式的字符串
+      const date = new Date(times).getTime();
+      if (isNaN(date)) {
+        chatAt = times;
+      } else {
+        chatAt = Number(date / 1000);
+      }
+      return chatAt;
+    }
+    console.log(changeTime(time));
+  </script>
+</body>
+
+</html>

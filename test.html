@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>radio</title>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .box {
+      position: relative;
+      width: 300px;
+      height: 20px;
+      margin: 100px auto;
+    }
+
+    .common {
+      width: 300px;
+      height: 20px;
+      display: block;
+      box-sizing: border-box;
+    }
+
+    .common-radio {
+      position: absolute;
+      width: 300px;
+      height: 500px;
+      background-color: #cccccc;
+      display: block;
+      overflow-y: scroll;
+    }
+
+    .common-radio li {
+      list-style: none;
+    }
+
+    .common-radio .li_1 {
+      width: 100%;
+      /* background-color: pink; */
+      text-align: center;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .common-radio .li_2 {
+      width: 80px;
+      float: left;
+      border: 1px solid black;
+      margin: 5px 5px;
+    }
+
+    .common_res {
+      width: 100%;
+    }
+
+    .res_li {
+      width: 80px;
+      float: left;
+      margin: 5px 5px;
+      font-size: 14px;
+      text-align: center;
+      background-color: #409eff;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <input id="common" class="common" type="text">
+    <div id="common_radio" class="common-radio">
+      <ul id="common_res"></ul>
+      <ul id="common_ul"></ul>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.staticfile.org/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    var infoArr = [{
+        name: "db1",
+        val: [
+          "test1",
+          "test2",
+          "test3",
+          "test4"
+        ]
+      },
+      {
+        name: "db2",
+        val: [
+          "test5",
+          "test6",
+          "test7",
+          "test8"
+        ]
+      },
+      {
+        name: "db3",
+        val: [
+          "test9",
+          "test10",
+          "test11",
+          "test12"
+        ]
+      }
+    ];
+
+    // $("#common").on("focus", function () {
+    //   // $("#common_radio").css("display", "block");
+
+
+    // });
+
+    var resArr = new Set_1();
+    console.log(resArr.set_arr);
+
+    var common_ul = document.getElementById("common_ul");
+    // 生成第一层li
+    infoArr.forEach(function (value, index) {
+      // 生成第一层title
+      var li_1 = document.createElement("li");
+      li_1.innerHTML = "<span>============" + value.name + "============</span>";
+      li_1.className = "li_1";
+      // 绑定事件
+      var li_1_flag = false;
+      li_1.onclick = function () {
+        if (li_1_flag) {
+          return;
+        }
+        li_1_flag = true;
+        var ul_2 = document.createElement("ul");
+        value.val.forEach(function (value2, index2) {
+          // 生成第二层title
+          var li_2 = document.createElement("li");
+          li_2.className = "li_2"
+          li_2.innerHTML = value2;
+          // 绑定事件
+          li_2.onclick = function () {
+            var res_info = value.name + value2;
+            resArr.push(res_info);
+            console.log(resArr);
+          }
+          ul_2.appendChild(li_2);
+        });
+        li_1.appendChild(ul_2);
+      }
+      common_ul.appendChild(li_1);
+    });
+
+    // 自定义集合
+    function Set_1() {
+      this.set_arr = [];
+    }
+    // 集合增加
+    Set_1.prototype.push = function (res) {
+      var num = this.set_arr.length;
+      var flag = false;
+      if (num === 0) {
+        setResUI(res, 0);
+        return this.set_arr.push(res);
+      }
+      for (var i = 0; i < num; i++) {
+        if (this.set_arr[i] === res) {
+          flag = true;
+        }
+      }
+      // 返回集合以及更新UI
+      if (flag) {
+        return this.set_arr;
+      }
+      setResUI(res, num);
+      return this.set_arr.push(res);
+    }
+    // 集合删除
+    Set_1.prototype.remove = function(res) {
+      var num = this.set_arr.length;
+      for (var i = 0; i < num; i++) {
+        if (this.set_arr[i] === res) {
+          this.set_arr.splice(i, 1);
+        }
+      }
+    }
+
+    var res_ul = document.getElementById("common_res");
+    function setResUI(res, index) {
+      var res_li = document.createElement("li");
+      res_li.innerHTML = res;
+      res_li.className = "res_li";
+      res_li.onclick = function() {
+        resArr.remove(res);
+        this.parentNode.removeChild(this);
+      }
+      res_ul.appendChild(res_li);
+    }
+  </script>
+</body>
+
+</html>
