@@ -57,6 +57,7 @@
     <div class="item"></div>
     <div class="item"></div>
     <div class="item"></div>
+    <div class="item"></div>
   </div>
 </div>
 
@@ -89,7 +90,7 @@
      */
     function toScroll() {
       start = Math.floor(view.scrollTop / itemH);
-      end = start + listNum - 1;
+      end = start + listNum;
       render(start, end, view.scrollTop)
     }
     /** 
@@ -105,7 +106,8 @@
         item.innerHTML = data[i]
       })
       // 使用transform属性滚动视图区域
-      content.style.transform = `translateY(${scroll}px)`
+      const offset = scroll - (scroll % itemH);
+      content.style.transform = `translateY(${offset}px)`
     }
   })(window)
 </script>
