@@ -45,7 +45,7 @@
 
   setObject(data, "word", "");
   Dep.target = watcher;
-  console.log(data.word);
+  const a = data.word;
 
   input.addEventListener(
     "input",
@@ -62,6 +62,7 @@
       enumerable: true,
       configurable: true,
       get: function () {
+        console.log(val);
         dep.depend();
         return val;
       },
