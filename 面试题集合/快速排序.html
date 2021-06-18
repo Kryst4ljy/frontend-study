@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>快速排序</title>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+  <script>
+    function test(source) {
+      let left = 0;
+      let right = source.length - 1;
+      asc(source, left, right);
+
+      function asc(arr, l, r) {
+        if (l >= r) return;
+        let left = l;
+        let right = r;
+        let key = arr[left];
+
+        while (left < right) {
+          while (left < right && arr[right] >= key) {
+            right--;
+          }
+          arr[left] = arr[right];
+          while (left < right && arr[left] < key) {
+            left++;
+          }
+          arr[right] = arr[left];
+        }
+        
+        arr[left] = key;
+        asc(arr, 0, left);
+        asc(arr, left + 1, r);
+      }
+    }
+
+    const arr = [3, 2, 31, 32, 4, 5, 23, 1]
+    test(arr);
+    console.log(arr);
+    // const one = test(arr);
+    // console.log(one);
+  </script>
+</body>
+
+</html>

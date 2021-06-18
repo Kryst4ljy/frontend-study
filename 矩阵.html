@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>矩阵</title>
+</head>
+
+<body>
+
+  <script>
+    function Matrix(s, rows) {
+      this.arr = s.split('');
+      this.rows = rows;
+      this.matrix = []; // 利用一个二维数组描述一个矩阵
+      for (let i = 0; i < rows; i++) {
+        this.matrix.push(new Array(rows));
+      }
+      this.setVal();
+    }
+    /** 
+     * 设置矩阵方法，利用一个二维数组来描述一个矩阵
+     */
+    Matrix.prototype.setVal = function () {
+      for (let i = 0; i < rows; i++) {
+        // i表示列数
+        for (let j = 0; j < rows; j++) {
+          // j表示行数
+          if (i === 0) {
+            // 当第一列时，插入数据
+            this.matrix[i][j] = this.arr[i + j];
+            continue;
+          } else if (i === rows - 1) {
+            // 当最后一列时，插入数据
+            this.matrix[i][j] = this.arr[i + j + rows - 1];
+            continue;
+          } else if (i + j === rows - 1) {
+            // 中间列数，只插入下标等于行数的部分
+            this.matrix[i][j] = this.arr[i + rows - 1];
+            continue;
+          }
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

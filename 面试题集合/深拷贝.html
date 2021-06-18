@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>深拷贝</title>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+  <script>
+    function test(obj) {
+      const res = {};
+      const keys = Object.keys(obj);
+      for (let i = 0; i < keys.length; i++) {
+        if (obj[keys[i]] instanceof Array) {
+          res[keys[i]] = [];
+          obj[keys[i]].forEach(item => {
+            res[keys[i]].push(test(item));
+          })
+        } else if (obj[keys[i]] instanceof Function) {
+          res[keys[i]] = obj[keys[i]];
+        } else if (obj[keys[i]] instanceof Object) {
+          res[keys[i]] = test(obj[keys[i]]);
+        } else {
+          res[keys[i]] = obj[keys[i]];
+        }
+      }
+      return res;
+    }
+
+    const obj = {
+      a: 1,
+      b: 2,
+      c: {
+        a: 23
+      },
+      d: function () {
+        console.log(123);
+      }
+    };
+    const one = test(obj);
+    console.log(one);
+  </script>
+</body>
+
+</html>
