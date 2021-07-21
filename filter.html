@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>filter的svg应用-轮播图</title>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    .slider {
+      width: 500px;
+      height: 300px;
+      overflow: hidden;
+      margin: 100px auto;
+    }
+
+    .slider>ul {
+      width: 1500px;
+      height: 100%;
+      transition: all 0.2s linear;
+    }
+
+    .slider>ul>li {
+      width: 500px;
+      height: 100%;
+      float: left;
+    }
+
+    .slider>ul>li>img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slider">
+    <ul id="view">
+      <li><img src="./桌面背景/壁纸/wallhaven-0p7e83.jpg" alt=""></li>
+      <li><img src="./桌面背景/壁纸/wallhaven-13mk9v.jpg" alt=""></li>
+      <li><img src="./桌面背景/壁纸/wallhaven-39oqky.png" alt=""></li>
+    </ul>
+  </div>
+
+  <svg>
+    <filter id="blur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5 0" />
+    </filter>
+  </svg>
+
+  <script>
+    const ul = document.getElementById("view");
+    let timer = null;
+    let index = 0;
+    setInterval(() => {
+      index === 2 && (index = -1);
+      ul.style.transform = `translateX(-${++index * 500}px)`;
+      ul.style.filter = 'url(#blur)';
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        ul.style.filter = 'none';
+      }, 200);
+    }, 1000);
+  </script>
+</body>
+
+</html>

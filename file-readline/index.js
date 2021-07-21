@@ -36,8 +36,15 @@ async function readTXT() {
       console.log(`可访问：${line.trim()}`);
       vWrite.write(`${line.trim()}\n`);
     }).catch(() => {
-      console.log(`不可访问：${line.trim()}`);
-      unVWrite.write(`${line.trim()}\n`);
+      console.log(`主域名不可访问：${line.trim()}`);
+      const r2 = shell(`ping -n 1 -l 1 www.${line.trim()}`);
+      r2.then(() => {
+        console.log(`可访问：www.${line.trim()}`);
+        vWrite.write(`${line.trim()}\n`);
+      }).catch(() => {
+        console.log(`不可访问：${line.trim()}`);
+        unVWrite.write(`${line.trim()}\n`);
+      });
     });
   }).on("close", () => {
     console.log("读写完毕");
