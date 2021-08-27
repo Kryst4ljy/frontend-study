@@ -1,3 +1,6 @@
+/**
+ * `Promise`的实现实际上是发布订阅模式的一种体现。在`then`、`catch`、`finally`等方法传入回调，这些回调函数都是`订阅者`，会被存在`Promise`内部的订阅者列表里。在`resolve`或者`reject`调用时，循环这些订阅者列表，发布订阅。
+ */
 class Promise_ {
   status = "pedding"; // 状态：pedding fulfilled rejected
   successDep = []; // 成功时的回调函数集合
@@ -42,7 +45,7 @@ class Promise_ {
 
         p.then((val) => {
           resArr[i] = val;
-          if (++num === arr.length) {
+          if (++num === resArr.length) {
             res(resArr);
           }
         }).catch((err) => {
@@ -81,42 +84,6 @@ class Promise_ {
           if (f) return;
           f = true;
           rej(err);
-        });
-      }
-    });
-  };
-  // any方法
-  static any = (arr) => {
-    // 判断入参是否为一个数组
-    if (!(arr instanceof Array)) {
-      console.error(`Promise resolver ${arr} is not a Array`);
-      return;
-    }
-
-    // 判断是否为空数组
-    if (arr.length === 0) return new Promise_((res) => res([]));
-
-    return new Promise_((res, rej) => {
-      let num = 0;
-      let f = false;
-      for (let i = 0; i < arr.length; i++) {
-        let p = null;
-        // 检测数组成员是否为Promise_对象
-        if (!(arr[i] instanceof Promise_)) {
-          p = Promise_.resolve(arr[i]);
-        } else {
-          p = arr[i];
-        }
-
-        p.then((val) => {
-          if (f) return;
-          f = true;
-          res(val);
-        }).catch((err) => {
-          if (f) return;
-          if (++num === arr.length) {
-            rej(new Error("any error"));
-          }
         });
       }
     });
@@ -198,20 +165,17 @@ class Promise_ {
 
 const p1 = new Promise_((res, rej) => {
   setTimeout(() => {
-    rej(123);
+    res(123);
   }, 300);
 });
 const p2 = new Promise_((res, rej) => {
   setTimeout(() => {
     rej(321);
-  }, 200);
+  }, 5000);
 });
-const p = Promise_.any([p1, p2]);
+const p = Promise_.all([p1, p2]);
 console.log(p);
 setTimeout(() => {
   console.log(p);
-  p.then(
-    (val) => console.log("1", val),
-    (val) => console.log("2", val)
-  );
-}, 6000);
+  // p.then((val) => console.log(val));
+}, 5000);
