@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>SVG</title>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    svg {
+      stroke: #000;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <svg width="350" height="500">
+    <defs>
+      <!-- 直线：两个点相连：起点（x1,y1）终点（x2,y2）相连 -->
+      <g id="line">
+        <line x1="0%" y1="0%" x2="100%" y2="0%"></line>
+        <line x1="0%" y1="10%" x2="60%" y2="10%"></line>
+      </g>
+
+      <!-- 折线：多个点之间相连不闭合：点1（x1,y1）点2（x2,y2）点3（x3,y3） -->
+      <g id="polyline">
+        <polyline points="5 2, 2 7, 5 12"></polyline>
+      </g>
+
+      <!-- 矩形：一个点确定左上角坐标 + 宽高 -->
+      <g id="rect">
+        <rect x="3" y="3" width="250" height="200"></rect>
+        <line x1="3" y1="20" x2="253" y2="20"></line>
+      </g>
+
+      <!-- 圆形：一个点（圆心 cx cy）+ 两个半径（rx：x轴的半径，ry：y轴的半径） -->
+      <!-- fill属性 是否填充 fill:black; -->
+      <g id="ellipse">
+        <ellipse style="fill:black;" cx="43" cy="43" rx="42" ry="30"></ellipse>
+      </g>
+
+      <!-- 多边形：多个点之间相连且闭合：点1（x1,y1）点2（x2,y2）点3（x3,y3） -->
+      <g id="polygon">
+        <ellipse cx="38" cy="40" rx="15" ry="15"></ellipse>
+        <polygon points="35 32, 45 40, 35 47"></polygon>
+      </g>
+
+      <!-- 路径：d(data) -> M开始 L画线 Z停止 -->
+      <g id="path">
+        <path d="M 1 1, L 20 20, L 10 20, Z"></path>
+      </g>
+    </defs>
+
+    <!-- 放置：可以声明一个点来确定放置位置 -->
+    <use href="#path" x="100" y="100"></use>
+  </svg>
+</body>
+
+</html>
